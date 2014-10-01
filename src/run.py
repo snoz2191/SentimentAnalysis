@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import string
-from pattern.en import tag
+from pattern.es import tag
 import re
 from ngrams import *
 from pattern.vector import SVM, CLASSIFICATION, LINEAR
@@ -71,6 +71,10 @@ def preprocess(tweet):
         message = re.sub(r'('+re.escape(symbol)+r')[^a-z0-9A-Z]',' \g<1> '+emoticons[symbol]+' ',message+' ')
     
     message = re.sub(re.escape('...'),'.' + ' &dots',message)
+
+    #erase repeated characters, replace with max 2 ocurrences
+    message = re.sub(r'(.)\1+', r'\1\1', message)
+
     for symbol in string.punctuation:
         message = re.sub(re.escape(symbol)+r'{3,}',' ' + symbol + ' &emphasis',message)
 
