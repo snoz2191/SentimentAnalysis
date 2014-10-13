@@ -1,0 +1,5 @@
+El mercantil de la castellana atiende más lento que el del san ignacio	Neutral
+Sol es una personas muy dedicada a su trabajo	Positive
+No entiendo porque el proceso es tan lento	Negative
+Las colas en el banco son impresionantes	Negative
+Sergio programa rapidamente y sus códigos son eficientes	Positive

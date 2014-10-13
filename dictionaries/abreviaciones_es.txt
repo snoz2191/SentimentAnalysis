@@ -1,0 +1,129 @@
+a2	adiós
+asc	al salir de clase
+bb?	¿lo ves?
+pa	papá
+bboo	besos
+pco	poco
+bj	baja
+pdt	paso de ti
+bye	adiós
+pf	por favor
+bss	adiós
+ca	cuanto antes
+pkñ	pequeño
+cbt	cobertura
+pls	por favor
+xf	por favor
+fx	cine
+pqñ	pequeño
+clg	cuelga
+prf	profesor
+clga	colega
+pscna	piscina
+crg	cargador
+pso	paso
+pdo	borrachera
+pq	porque
+d2	dedos
+q	que
+dsk	discoteca
+dnd	¿dónde?
+e-m	e mail
+ers	eres
+qt1bd	que tengas un buen día
+eys	ellos
+rmno	hermano
+rptlo	repítelo
+finde	fin de semnana
+s q	es que
+gnl	¡genial!
+s s q	si es que...
+grnd	grande
+salu2	saludos
+grr	enfadado
+sbdo	sabado
+h lgo	hasta luego
+sbs?	¿sabes?
+hl	hasta luego
+slmos?	¿salimos?
+hla	hola
+sms	mensaje corto
+hr	hora
+spro	espero
+hsta	hasta
+srt!	¡suerte!
+hsta	hasta
+mñn	mañana
+ies	instituto
+stld	si tú lo dices...
+jdt	jodete
+t @	te mando un mail
+tO	te odio
+ko	estoy muerto
+tas OK?	¿estás bien?
+kdda	Quedada
+tb	también
+ktden	que te den
+tbj	trabajo
+tvl	te veo luego
+k tl?	¿qué tal?
+tki	tengo que irme
+kdms?	¿quedamos?
+tjt	tarjeta
+kls	clase
+tl	teléfono
+kntm	cuéntame
+tv	televisión
+kyat	cállate
+tng	tengo
+k	que
+tq	te quiero
+trd	tarde
+lg	lugar
+TQITPP	te quiero y te pido perdón
+ls	los,las
+TQPSA	te quería pero se acabó
+m1ml	mándame un mensaje luego
+u	tú
+mim	misión imposible
+vac	vacaciones
+ma	mamá
+vns?	¿vienes?
+MK?	¿me quieres?
+vos	vosotros
+msj	mensaje
+vrns	viernes
+mto	moto
+wpa	¡guapa!
+mv	móvil
+x	por
+mxo	mucho
+xa	para
+net	Internet
+xam	examen
+nl	en el
+xat	chat
+nlc	no lo conozco
+xdon	perdón
+nls	no lo sé
+xk?	¿por qué?
+nos	nosotros
+xka	chica
+nph	no puedo hablar
+xko	chico
+npi	ni puta idea
+xo	pero
+npn	no pasa nada
+xq	porque
+NSN	no se nada
+xx	chica
+nsti	instituto
+xy	chico
+nt1d	no tengo un duro
+ymam	llámame
+nv	nos vemos
+Zzz	me duermo
+nva	nos vemos allí
+TDC tarjeta de crédito
+qpo	cupo
+cpo cupo

@@ -5,7 +5,7 @@ import re
 from ngrams import *
 from pattern.vector import SVM, CLASSIFICATION, LINEAR
 from pattern.en.wordlist import STOPWORDS as stopwords
-from operator import itemgetter
+
 from copy import copy
 import locale
 
@@ -149,20 +149,20 @@ def evaluate_bow_and_features(tweet):
                         so = bow_map[w]
                         if h_negation and (j-h_j_neg) <= lookup_window:
                             if so > 0:
-                                so = so - 4
+                                so = so - 5
                             else:
-                                so = so + 4
+                                so = so + 5
                         if h_intensifier and (j-h_j_int) <= lookup_window:
-                            so = so + ( so * intensifier )
+                            so = so + ( so * h_intensifier )
                         if so >0:
                             pos_so += 3*so
                         else:
                             neg_so += 3*so
                         if w in negator_map:
-                            negation = True
+                            h_negation = True
                             h_j_neg = j
                         if w in booster_map:
-                            intensifier = booster_map[w]
+                            h_intensifier = booster_map[w]
                             h_j_int = j
 
             else:
