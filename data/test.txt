@@ -2,3 +2,5 @@ Que fina fue la película :D	Positive
 Q horrible fue todo :(	Negative
 Q lento fue todo	Negative
 Que suprema felicidad es la que siento por el socialismo :)	Positive
+Abrieron un nuevo mercantil	Neutral
+Fui al mercantil	Neutral

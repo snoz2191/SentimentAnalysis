@@ -29,25 +29,25 @@ def get_pol_map():
     d = open("../dictionaries/adj_dict_es.txt")
     for elem in d:
         message = regex.split(elem)
-        adj_map[message[0]] = message[1]
+        adj_map[message[0]] = float(message[1])
     d.close()
     #Loading Adverbs Dictionary
     d = open("../dictionaries/adv_dict_es.txt")
     for elem in d:
         message = regex.split(elem)
-        adv_map[message[0]] = message[1]
+        adv_map[message[0]] = float(message[1])
     d.close()
     #Loading Nouns Dictionary
     d = open("../dictionaries/noun_dict_es.txt")
     for elem in d:
         message = regex.split(elem)
-        noun_map[message[0]] = message[1]
+        noun_map[message[0]] = float(message[1])
     d.close()
     #Loading Verbs Dictionary
     d = open("../dictionaries/verb_dict_es.txt")
     for elem in d:
         message = regex.split(elem)
-        verb_map[message[0]] = message[1]
+        verb_map[message[0]] = float(message[1])
     d.close()
     #Loading Slang and Abbreviations Dictionary
     d = open("../dictionaries/abreviaciones_es.txt")
@@ -216,16 +216,10 @@ def train_svm(classifier, tweets):
     global bag_of_words
     print "Training In Progress......"
     bows = {}
-    ws = []
     for tweet in tweets:
-        print tweet['message']
-        ws[:] = []
         for w, t in preprocess(tweet['message']):
             if w.encode('utf8') not in stopwords and not w.isdigit():
                 bows[w.lower()] = bows.get(w.lower(),0) + 1
-        for w in ws:
-            print "W: " + w + ", Occurences: " + str(bows.get(w,0))
-            bows[w] = bows.get(w,0) + 1
     bag_of_words = [w for w,freq in sorted(bows.items(),key= lambda x: (-x[1], x[0]))[:1000]]
     for tweet in tweets:
         svm_classifier.train(get_features(preprocess(tweet['message'])),type=tweet['sentiment'])
@@ -234,7 +228,6 @@ def train_svm(classifier, tweets):
 #Function that, given a preprocessed tweet, returns the polarity score of the same based on
 #the emoticons present, if any.
 def evaluate_emoticons(tweet):
-    print tweet
     positive = ['&happy', '&laugh', '&wink', '&heart', '&highfive', '&angel', '&tong']
     negative = ['&sad', '&annoyed', '&seallips', '&devil']
     positive_count = 0
@@ -244,6 +237,7 @@ def evaluate_emoticons(tweet):
             print t
             positive_count += 1
         if t in negative:
+            print t
             negative_count += 1
     return positive_count - negative_count
 
@@ -258,10 +252,21 @@ def find_word(word, wlist):
             result = match
     return result
 
+def get_dict(tag):
+    if tag[:2] == "NN":
+        return noun_map
+    elif tag[:2] == "VB":
+        return verb_map
+    elif tag[:2] == "RB":
+        return adv_map
+    else:
+        return adj_map
 
+#Function that, given a preprocessed tweet, returns the sentiment orientation of the same based
+#on the sentiment of the words used and the presence of boosters, negators and intensifier.
 def evaluate_bow_and_features(tweet):
-    global bow_map, negator_map, booster_map
-    tweet = [w.lower() for w,tag in tweet]
+    #global modifiers, booster_map, negator_map
+    # tweet = [w.lower() for w,tag in tweet]
     pos_so = 0.0
     neg_so = 0.0
     intensifier = 0
@@ -273,7 +278,8 @@ def evaluate_bow_and_features(tweet):
     conj_fol = ['but', 'however', 'nevertheless', 'otherwise', 'yet', 'still', 'nonetheless']
     conj_prev = ['till', 'until', 'despite', 'in spite', 'though', 'although']
     conj_infer = ['therefore', 'furtherore', 'consequently', 'thus', 'as a result', 'subsequently', 'eventuall hence']
-    for i,w in enumerate(tweet):
+    for i, (w,tag) in enumerate(tweet):
+        bow_map = get_dict(tag)
         if conj_fol.count(w) or conj_infer.count(w):
             boost_up = True
             negation = False
@@ -285,7 +291,7 @@ def evaluate_bow_and_features(tweet):
             negation = False
             intensifier = False
         else:
-            w = find_word(w, bow_map.keys())
+            so = 0.0
             if w != None and w[0] == '#':
                 h_intensifier = 0
                 h_negation = False
@@ -298,9 +304,9 @@ def evaluate_bow_and_features(tweet):
                         so = bow_map[w]
                         if h_negation and (j-h_j_neg) <= lookup_window:
                             if so > 0:
-                                so = so - 4
+                                so = so - 5
                             else:
-                                so = so + 4
+                                so = so + 5
                         if h_intensifier and (j-h_j_int) <= lookup_window:
                             so = so + ( so * intensifier )
                         if so >0:
@@ -324,10 +330,12 @@ def evaluate_bow_and_features(tweet):
                             so = so + 5
                     if intensifier and (i-i_int) <= lookup_window:
                         so = so + ( so * intensifier )
+
             if boost_up:
                 so = so*2
             if boost_down:
                 so = (so*(1.0))/2
+
             if so > 0:
                 pos_so += so
             else:
@@ -349,34 +357,40 @@ def evaluate_bow_and_features(tweet):
 #Returns: Classification of the tweet in either Positive, Negative or Neutral category
 def hybrid_classify(tweet):
     filter_tweet = preprocess(tweet)
+    print filter_tweet
     emoticon_result = evaluate_emoticons(filter_tweet)
     if emoticon_result > 0:
+        print "EMOTICON RESULT"
         return 'Positive'
     elif emoticon_result < 0:
+        print "EMOTICON RESULT"
         return 'Negative'
 
-    # bow_result = evaluate_bow_and_features(filter_tweet)
-    # if bow_result >= 2:
-    #     return 'positive'
-    # elif bow_result <= -2:
-    #     return 'negative'
+    bow_result = evaluate_bow_and_features(filter_tweet)
+    print bow_result
+    if bow_result >= 2:
+        print "BOW RESULT"
+        return 'Positive'
+    elif bow_result <= -2:
+        print "BOW RESULT"
+        return 'Negative'
 
     svm_result = svm_classifier.classify(get_features(filter_tweet))
-    #print "\t\t\tSVM RESULT!!"
-    return svm_result
+    print "SVM RESULT"
+    return svm_result.strip('\n')
 
 
 #Main Function
 def main():
+    global modifiers, booster_map, negator_map, bag_of_words
     get_pol_map()
     booster_map = get_booster_map()
     negator_map = get_negator_map()
-    global modifiers
     modifiers = get_mod_map(booster_map, negator_map)
 
     bag_of_words = []
     train_data, test_data = load_data_from_file(sys.argv[1], sys.argv[2])
-    output_file = open("output.output", "w")
+    #output_file = open("output.output", "w")
 
     global svm_classifier
     svm_classifier = SVM(type=CLASSIFICATION, kernel=LINEAR)
@@ -385,9 +399,9 @@ def main():
     for n, tweet in enumerate(test_data):
         class1 = hybrid_classify(tweet['message'])
         print class1
-        line = 'sid\tuid\t' + class1 + '\t' + tweet['message']
-        output_file.write(line)
-    output_file.close()
+        #line = 'sid\tuid\t' + class1 + '\t' + tweet['message']
+        #output_file.write(line)
+    #output_file.close()
 
 
 if __name__ == "__main__":

@@ -3,3 +3,5 @@ Sol es una personas muy dedicada a su trabajo	Positive
 No entiendo porque el proceso es tan lento	Negative
 Las colas en el banco son impresionantes	Negative
 Sergio programa rapidamente y sus códigos son eficientes	Positive
+Fui al mercantil	Neutral
+El mercantil queda cerca del banesco	Neutral
