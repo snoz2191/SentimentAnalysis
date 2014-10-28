@@ -3,6 +3,7 @@ absoluto	0.5
 abundante	0.4
 abundantemente	0.4
 a_conciencia	0.5
+al_contrario	0.0
 altamente	0.25
 alucinantemente	0.3
 apasionadamente	0.4
@@ -11,6 +12,7 @@ bien	0.25
 ciertamente	0.3
 claramente	0.15
 claro	0.3
+como_resultado	0.5
 completamente	0.25
 completo	0.5
 concretamente	0.1
@@ -32,6 +34,7 @@ el_mas_claro	0.5
 el_más_claro	0.5
 el_mas_grande	0.5
 el_más_grande	0.5
+en_consecuencia	0.5
 en_gran_medida	0.25
 enorme	0.5
 enormemente	0.35
@@ -97,6 +100,9 @@ obscenamente	0.4
 obviamente	0.15
 obvio	0.3
 particularmente	0.25
+por_eso	0.5
+por_tanto	0.5
+por_lo_tanto	0.5
 perfectamente	0.1
 precisamente	0.25
 principal	0.3
@@ -134,4 +140,3 @@ un_monton_de	0.5
 un_montón_de	0.5
 unusualmente	0.3
 verdaderamente	0.25
-
